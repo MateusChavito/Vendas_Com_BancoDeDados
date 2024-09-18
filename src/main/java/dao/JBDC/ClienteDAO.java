@@ -126,16 +126,16 @@ public class ClienteDAO implements IClienteDAO {
         return list;
     }
 
+    private String getSqlInsert() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("INSERT INTO TB_CLIENTE_2 (ID, CODIGO, NOME) ");
+        sb.append("VALUES (nextval('SQ_CLIENTE_2'), ?, ?) ");
+        return sb.toString();
+    }
 
 
-    private String getSqlInsert () {
-            StringBuilder sb = new StringBuilder();
-            sb.append("INSERT INTO TB_CLIENTE_2 (ID, CODIGO, NOME");
-            sb.append("VALUES(nextval('SQ_CLIENTE_2'),?,?");
-            return sb.toString();
-        }
 
-        private void adicionarParametrosInsert (PreparedStatement stm, Cliente cliente) throws SQLException {
+    private void adicionarParametrosInsert (PreparedStatement stm, Cliente cliente) throws SQLException {
             stm.setString(1, cliente.getCodigo());
             stm.setString(2, cliente.getNome());
         }
@@ -156,7 +156,7 @@ public class ClienteDAO implements IClienteDAO {
 
         private String getSqlSelect () {
             StringBuilder sb = new StringBuilder();
-            sb.append("SELECT * FROM TB_CLIENTE_2");
+            sb.append("SELECT * FROM TB_CLIENTE_2 ");
             sb.append("WHERE CODIGO = ?");
             return sb.toString();
         }
@@ -167,7 +167,7 @@ public class ClienteDAO implements IClienteDAO {
 
         private String getSqlDelete() {
             StringBuilder sb = new StringBuilder();
-            sb.append("DELETE FROM TB_CLIENTE_2");
+            sb.append("DELETE FROM TB_CLIENTE_2 ");
             sb.append("WHERE CODIGO = ?");
             return sb.toString();
     }
@@ -178,7 +178,7 @@ public class ClienteDAO implements IClienteDAO {
 
     private String getSqlSelectAll() {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT * FROM TB_CLIENTE_2");
+        sb.append("SELECT * FROM TB_CLIENTE_2 ");
         return sb.toString();
     }
 

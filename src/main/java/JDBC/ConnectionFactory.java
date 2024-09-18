@@ -6,23 +6,24 @@ import java.sql.SQLException;
 
 public class ConnectionFactory {
 
-    private static ConnectionFactory connection;
+    private static Connection connection;
 
-    private ConnectionFactory(Connection connection) {
-
+    private ConnectionFactory(Connection connection){
     }
 
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException {
         if (connection == null) {
-            connection = (ConnectionFactory) initConnection();
+            connection = initConnection();
+        } else if (connection != null && connection.isClosed()){
+            connection = initConnection();
         }
-        return (Connection) connection;
+        return connection;
     }
 
     private static Connection initConnection() {
         try {
             return DriverManager.getConnection(
-                    "jdbc:postgresql://localhost:1432/vendas_online_2", "postgres", "darkichigo");
+                    "jdbc:postgresql://localhost:5432/vendas_online2", "postgres", "admin");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
